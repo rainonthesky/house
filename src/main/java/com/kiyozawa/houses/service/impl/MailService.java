@@ -29,6 +29,7 @@ public class MailService {
     @Value("${spring.mail.username}")
     private String from;
 
+
     @Autowired
     private UserMapper userMapper;
 

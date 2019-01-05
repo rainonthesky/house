@@ -25,7 +25,7 @@ public interface UserMapper {
      * @param user
      * @return
      */
-    List<User> selectUsersByQuery(User user);
+     public List<User> selectUsersByQuery(User user);
 
     /**
      * 修改用户信息

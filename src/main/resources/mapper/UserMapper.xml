@@ -12,10 +12,8 @@
   from user
 </select>
 
-  <select id="selectUsersByQuery">
-    select
-    <include refid="Base_Column_List"></include>
-    from user
+  <select id="selectUsersByQuery" resultType="user">
+    select * from user
     <where>
       <if test="id !=null" >
         and id = #{id}
@@ -33,8 +31,8 @@
         and type = #{type}
       </if>
     </where>
-
   </select>
+
   <insert id="insertUser">
     <selectKey keyProperty="id" resultType="long" order="AFTER">
       SELECT  LAST_INSERT_ID() as id
