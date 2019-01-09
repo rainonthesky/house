@@ -33,7 +33,7 @@ public class userServiceImpl implements UserService {
     @Autowired
     private MailService mailService;
 
-    @Value("${file.path}")
+    @Value("${file.prefix}")
     private String imgPrefix;
     @Override
     public List<User> getUserList() {

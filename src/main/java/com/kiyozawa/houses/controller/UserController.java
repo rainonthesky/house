@@ -23,7 +23,12 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-
+    /**
+     * 注册提交：1.注册验证 2发送邮箱 3验证失败重定向到注册页
+     * @param account
+     * @param modelMap
+     * @return
+     */
     @RequestMapping("/accounts/register")
     public String accountsRegister(User account, ModelMap modelMap){
         if(account==null || account.getName()==null){

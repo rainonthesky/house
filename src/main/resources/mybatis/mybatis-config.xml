@@ -18,11 +18,15 @@
     </settings>
 
     <typeAliases>
-       <typeAlias type="com.kiyozawa.houses.model.User" alias="user" />
+       <!--<typeAlias type="com.kiyozawa.houses.model.User" alias="user" />-->
+       <!--<typeAlias type="com.kiyozawa.houses.model.House" alias="house" />-->
+        <package name="com.kiyozawa.houses.model"/>
     </typeAliases>
     
     <mappers>
        <mapper resource="mapper/UserMapper.xml" />
+       <mapper resource="mapper/HouseMapper.xml" />
+       <mapper resource="mapper/AgencyMapper.xml"/>
     </mappers>
 
 </configuration>

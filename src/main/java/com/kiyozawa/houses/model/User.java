@@ -23,7 +23,7 @@ public class User {
 
     private String avatar;
 
-    private Boolean type;//1.普通用户2.经纪人
+    private Integer type;//1.普通用户2.经纪人
 
     private Date createTime;
 
@@ -120,11 +120,11 @@ public class User {
         this.avatar = avatar == null ? null : avatar.trim();
     }
 
-    public Boolean getType() {
+    public Integer getType() {
         return type;
     }
 
-    public void setType(Boolean type) {
+    public void setType(Integer type) {
         this.type = type;
     }
 

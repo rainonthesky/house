@@ -16,7 +16,6 @@ import java.util.List;
 public class FileService {
     @Value("${file.path}")
     private String filePath;
-
     public List<String> getImgPaths(List<MultipartFile> files) {
         if (Strings.isNullOrEmpty(filePath)) {
             filePath = getResourcePath();

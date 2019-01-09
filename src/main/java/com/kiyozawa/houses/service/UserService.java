@@ -1,6 +1,7 @@
 package com.kiyozawa.houses.service;
 
 
+import com.kiyozawa.houses.model.HouseUser;
 import com.kiyozawa.houses.model.User;
 
 import java.util.List;
@@ -51,4 +52,6 @@ public interface UserService {
      * @param email
      */
     void updateUser(User updateUser, String email);
+
+
 }
