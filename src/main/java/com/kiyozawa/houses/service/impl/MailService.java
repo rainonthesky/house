@@ -32,9 +32,8 @@ public class MailService {
 
     @Autowired
     private UserMapper userMapper;
-
     private final Cache<String,String> registerCache= CacheBuilder.newBuilder().maximumSize(100).expireAfterAccess(15, TimeUnit.MINUTES)
-            .removalListener(new RemovalListener<String, String>() {
+            .removalListener(new RemovalListener<String, String>() ).build(new RemovalListener<String, String>() {
                 @Override
                 public void onRemoval(RemovalNotification<String, String> notification) {
                     String email =notification.getValue();
@@ -43,9 +42,9 @@ public class MailService {
                     List<User>targetUser=userMapper.selectUsersByQuery(user);
                     if(!targetUser.isEmpty()|| Objects.equals(targetUser.get(0).getEnable(),0)){
                         userMapper.delete(email);// 代码优化: 在删除前首先判断用户是否已经被激活，对于未激活的用户进行移除操作
-                       }
                     }
-            }).build();
+                }
+            });
         @Async
         public void sendMail(String title,String url,String email){
             SimpleMailMessage simpleMailMessage =new SimpleMailMessage();
@@ -70,24 +69,21 @@ public class MailService {
             //删除缓存
             registerCache.invalidate(key);
             return true;
-
-
         }
 
     /**
-     * 缓存key——email的关系，2。借助Spring mail发送邮件3。借助异步框架进行异步操作
+     * 缓存key——email的关系，
+     * 2.借助Spring mail发送邮件
+     * 3.借助异步框架进行异步操作
      * @param email
      */
     @Async
     public void registerNotify(String email){
+            //生成指定长度的字母和数字的随机组合字符串
             String randomKey= RandomStringUtils.randomAlphabetic(10);
             registerCache.put(randomKey,email);
             String url="http://"+domainName+"/accounts/verify?key="+randomKey;
             sendMail("房产平台激活邮件",url,email);
         }
-
-
-
-
 
 }

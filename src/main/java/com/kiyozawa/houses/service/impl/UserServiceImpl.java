@@ -2,12 +2,10 @@ package com.kiyozawa.houses.service.impl;
 
 
 import com.google.common.collect.Lists;
-import com.kiyozawa.houses.controller.ErrorHandler;
 import com.kiyozawa.houses.mapper.UserMapper;
 import com.kiyozawa.houses.model.User;
 import com.kiyozawa.houses.service.UserService;
 import com.kiyozawa.houses.utils.BeanHelper;
-import com.kiyozawa.houses.utils.HashUtils1;
 import com.kiyozawa.houses.utils.HashUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,9 +17,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class userServiceImpl implements UserService {
+public class UserServiceImpl implements UserService {
 
-    private static  final Logger logger= LoggerFactory.getLogger(userServiceImpl.class);
+    private static  final Logger logger= LoggerFactory.getLogger(UserServiceImpl.class);
 
 
     @Autowired
