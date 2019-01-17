@@ -27,13 +27,30 @@
     </if>
   </select>
   <sql id="houseCondition">
+    <if test="house.userId !=null and house.userId !=0">
+      inner join (select house_id,user_id from house_user
+      <where>
+        user_id = #{house.userId}
+        <if test="house.bookmarked != null and house.bookmarked == true">
+          and type = 2
+        </if>
+        <if test="house.bookmarked != null and house.bookmarked == false">
+          and type =1
+        </if>
+      </where>
+      ) b
+      on a.id = b.house_id
+    </if>
+    <where>
     <if test="house.id !=null and house.id !=0">
       and a.id = #{house.id}
     </if>
-    <!--<if test="house.type != null">-->
-      <!--and a.type = #{house.type}-->
-    <!--</if>-->
-
+    <if test="house.type != null">
+      and a.type = #{house.type}
+    </if>
+     <if test="house.communityId != null" >
+      and a.community_id = #{house.communityId}
+     </if>
     <if test="house.name != null and house.name != '' " >
       and a.name like '%${house.name}%'
     </if>
@@ -43,25 +60,27 @@
           #{item}
       </foreach>
     </if>
+    </where>
   </sql>
+
   <select id="selectPageCount" resultType="long">
     select count(id)
     from house a
     <include refid="houseCondition"></include>
   </select>
+
   <select id="selectCommunity" resultType="community">
     select * from community
     <where>
-      <if test="id != null and id != 0">
-        and id = #{id}
-      </if>
-      <if test="name != null and name != ''">
-        name = #{name}
-      </if>
+        <if test="id != null and id != 0">
+            and id = #{id}
+        </if>
+        <if test="name != null and name != ''">
+            and name = #{name}
+        </if>
     </where>
   </select>
   <insert id="insertUserMsg">
-
     insert into house_msg(msg, create_time,
       agent_id, house_id, user_name)
     values(
@@ -76,7 +95,71 @@
   limit 1
 </select>
 
+  <insert id="insert"  useGeneratedKeys="true" keyProperty="id">
+     insert into house(
+                     type,
+                     name,
+                     price,
+                     images,
+                     area,
+                     beds,
+                     baths,
+                     rating,
+                     remarks,
+                     properties,
+                     floor_plan,
+                     tags,
+                     create_time,
+                     city_id,
+                     community_id,
+                     address,
+                     state
+                  )
+                 value(
+                     #{type},
+                     #{name},
+                     #{price},
+                     #{images},
+                     #{area},
+                     #{beds},
+                     #{baths},
+                     #{rating},
+                     #{remarks},
+                     #{properties},
+                     #{floorPlan},
+                     #{tags},
+                     #{createTime},
+                     #{cityId},
+                     #{communityId},
+                     #{address},
+                     #{state}
+                     )
+   </insert>
 
+  <select id="selectHouseUser" resultType="houseUser">
+     select id,house_id,user_id,create_time,type
+     from house_user
+     where house_id = #{id} and user_id = #{userId} and type = #{type}
+  </select>
+  <insert id="insertHouseUser">
+   insert into house_user(house_id,user_id,create_time,type)
+   values(#{houseId},#{userId},#{createTime},#{type})
+  </insert>
+    <update id="downHouse">
+      update house
+      set    state = 2
+      where  id = #{id}
+    </update>
+
+<update id="updateHouse">
+    update house
+    set rating=#{rating}
+    where id=#{id}
+</update>
+    <delete id="deleteHouseUser">
+        delete from house_user
+        where house_id=#{id} and user_id=#{userId} and type =#{type}
+    </delete>
 
 
 

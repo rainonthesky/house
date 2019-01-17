@@ -1,5 +1,4 @@
 package com.kiyozawa.houses.service.impl;
-
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.RemovalListener;
@@ -14,7 +13,6 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
@@ -33,18 +31,18 @@ public class MailService {
     @Autowired
     private UserMapper userMapper;
     private final Cache<String,String> registerCache= CacheBuilder.newBuilder().maximumSize(100).expireAfterAccess(15, TimeUnit.MINUTES)
-            .removalListener(new RemovalListener<String, String>() ).build(new RemovalListener<String, String>() {
+            .removalListener(new RemovalListener<String, String>() {
                 @Override
                 public void onRemoval(RemovalNotification<String, String> notification) {
                     String email =notification.getValue();
                     User user=new User();
                     user.setEmail(email);
                     List<User>targetUser=userMapper.selectUsersByQuery(user);
-                    if(!targetUser.isEmpty()|| Objects.equals(targetUser.get(0).getEnable(),0)){
+                    if(!targetUser.isEmpty()&& Objects.equals(targetUser.get(0).getEnable(),0)){
                         userMapper.delete(email);// 代码优化: 在删除前首先判断用户是否已经被激活，对于未激活的用户进行移除操作
                     }
                 }
-            });
+            } ).build();
         @Async
         public void sendMail(String title,String url,String email){
             SimpleMailMessage simpleMailMessage =new SimpleMailMessage();
@@ -64,7 +62,7 @@ public class MailService {
            }
            User updateUser=new User();
            updateUser.setEmail(email);
-            updateUser.setEnable(1);
+           updateUser.setEnable(1);
             userMapper.update(updateUser);
             //删除缓存
             registerCache.invalidate(key);

@@ -27,6 +27,7 @@
        <mapper resource="mapper/UserMapper.xml" />
        <mapper resource="mapper/HouseMapper.xml" />
        <mapper resource="mapper/AgencyMapper.xml"/>
+       <mapper resource="mapper/CommentMapper.xml"/>
     </mappers>
 
 </configuration>

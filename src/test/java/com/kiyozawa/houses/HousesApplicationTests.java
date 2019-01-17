@@ -20,6 +20,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
+import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 @RunWith(SpringRunner.class)
@@ -40,22 +41,13 @@ public class HousesApplicationTests {
 
     @Test
     public void testUser() {
-         Cache<String,String> registerCache= CacheBuilder.newBuilder().maximumSize(100).expireAfterAccess(15, TimeUnit.MINUTES)
-                .removalListener(new RemovalListener<String, String>() {
 
-                }).build();
+
     }
-//    @Override
-//    public void onRemoval(RemovalNotification<String, String> notification) {
-//        String email =notification.getValue();
-//        System.out.println(111+email);
-////                        User user=new User();
-//                        user.setEmail(email);
-//                        List<User>targetUser=userMapper.selectUsersByQuery(user);
-//                        if(!targetUser.isEmpty()|| Objects.equals(targetUser.get(0).getEnable(),0)){
-//                            userMapper.delete(email);// 代码优化: 在删除前首先判断用户是否已经被激活，对于未激活的用户进行移除操作
-//                        }
-    }
+
+
+
+
 
 
 

@@ -1,6 +1,4 @@
 package com.kiyozawa.houses.service.impl;
-
-
 import com.google.common.collect.Lists;
 import com.kiyozawa.houses.mapper.UserMapper;
 import com.kiyozawa.houses.model.User;
@@ -58,7 +56,6 @@ public class UserServiceImpl implements UserService {
        return mailService.enable(key);
     }
 
-
     @Override
     public User auth(String username, String password) {
 
@@ -88,5 +85,17 @@ public class UserServiceImpl implements UserService {
         userMapper.update(updateUser);
 
     }
+
+    @Override
+    public User getUserById(Long userId) {
+        User queryUser=new User();
+        queryUser.setId(userId);
+        List<User>users=getUserByQuery(queryUser);
+        if(!users.isEmpty()){
+        return users.get(0);
+        }
+        return null;
+    }
+
 
 }

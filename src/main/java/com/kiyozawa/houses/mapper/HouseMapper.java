@@ -48,5 +48,48 @@ public interface HouseMapper {
      */
     public HouseUser selectSaleHouseUser(@Param("id")Long houseId);
 
+    /**
+     * 添加房产的信息
+     * @return
+     */
+    public int insert(House house);
 
+    /**
+     * 查询用户和房屋对应的关系
+     * @param userId
+     * @param houseId
+     * @param type
+     * @return
+     */
+    public HouseUser selectHouseUser(@Param("userId")Long userId,@Param("id")Long houseId,Integer type);
+
+    /**
+     * 房产和用户关系的增加
+     * @param houseUser
+     * @return
+     */
+    public int  insertHouseUser(HouseUser houseUser);
+
+    /**
+     * 更新房子的信息
+     * @param house
+     * @return
+     */
+    public int updateHouse(House house);
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    public int downHouse(Long  id);
+
+    /**
+     * 删除房屋关系
+     * @param id
+     * @param userId
+     * @param value
+     * @return
+     */
+    public int deleteHouseUser(@Param("id")Long id,@Param("userId") Long userId,@Param("type") Integer value);
 }

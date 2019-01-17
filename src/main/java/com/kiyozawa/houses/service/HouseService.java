@@ -1,10 +1,11 @@
 package com.kiyozawa.houses.service;
 
-import com.kiyozawa.houses.model.House;
-import com.kiyozawa.houses.model.HouseUser;
-import com.kiyozawa.houses.model.UserMsg;
+import com.kiyozawa.houses.constants.HouseUserType;
+import com.kiyozawa.houses.model.*;
 import com.kiyozawa.houses.page.PageData;
 import com.kiyozawa.houses.page.PageParams;
+
+import java.util.List;
 
 public interface HouseService {
     /**
@@ -32,4 +33,64 @@ public interface HouseService {
      * @return
      */
     public HouseUser getHouseUser(Long houseId);
+
+    /**
+     * 查询房屋的图片
+     * @param query
+     * @param pageParams
+     * @return
+     */
+
+    List<House> queryAndSetImg(House query, PageParams pageParams);
+
+    /**
+     * 获取所有小区
+     * @return
+     */
+    public List<Community> getAllCommunitys();
+    /**
+     * 1.添加房产图片
+     * 2.添加户型图片
+     * 3.插入房产信息
+     * 4.绑定用户到房产的关系
+     *
+     */
+    public void addHouse(House house, User user);
+
+    /**
+     * 修改评论的分数
+     * @param id
+     * @param rating
+     */
+    public void updateRating(Long id,Double rating);
+
+    /**
+     *
+     * @param houseId
+     * @param userId
+     * @param isCollect
+     */
+    public void  bindUser2House(Long houseId,Long userId,boolean isCollect);
+
+    /**
+     *
+     * @param id
+     * @param userId
+     * @param type
+     */
+    public void unbindUser2House(Long id, Long userId, HouseUserType type);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

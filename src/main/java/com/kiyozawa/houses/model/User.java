@@ -29,8 +29,17 @@ public class User {
 
 
     private Integer enable;
+    private String agencyName;
 
     private Long agencyId;
+
+    public String getAgencyName() {
+        return agencyName;
+    }
+
+    public void setAgencyName(String agencyName) {
+        this.agencyName = agencyName;
+    }
 
     public String getConfirmPasswd() {
         return confirmPasswd;

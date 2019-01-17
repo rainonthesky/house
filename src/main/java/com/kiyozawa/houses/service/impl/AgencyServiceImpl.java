@@ -2,6 +2,7 @@ package com.kiyozawa.houses.service.impl;
 
 import com.kiyozawa.houses.mapper.AgencyMapper;
 import com.kiyozawa.houses.model.User;
+import com.kiyozawa.houses.page.PageData;
 import com.kiyozawa.houses.page.PageParams;
 import com.kiyozawa.houses.service.AgencyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,15 @@ public class AgencyServiceImpl implements AgencyService {
         }
         return null;
     }
+
+    @Override
+    public PageData<User> getAllAgent(PageParams pageParams) {
+        List<User>agents=agencyMapper.selectAgent(new User(),pageParams);
+        setImg(agents);
+        Long count=agencyMapper.selectAgentCount(new User());
+        return PageData.buildPage(agents,count,pageParams.getPageSize(),pageParams.getPageNum());
+    }
+
     private void setImg(List<User>list){
         list.forEach(i->{
             i.setAvatar(imgPref+i.getAvatar());

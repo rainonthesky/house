@@ -1,4 +1,6 @@
 package com.kiyozawa.houses.model;
+import com.google.common.base.Joiner;
+import com.google.common.base.Objects;
 import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
@@ -9,51 +11,61 @@ import java.util.List;
 
 public class House {
     private Long id;
-
-    private String name;
-
     private Integer type;
-
     private Integer price;
-
+    private String  name;
     private String images;
-
     private Integer area;
-
     private Integer beds;
-
     private Integer baths;
+    private Double  rating;
 
-    private Double rating;
-
-    private String remarks;
-
-    private String properties;
-
-    private String floorPlan;
-
-    private String tags;
-
-    private Date createTime;
-
+    private Integer roundRating = 0;
+    private String  remarks;
+    private String  properties;
+    private String  floorPlan;
+    private String  tags;
+    private Date    createTime;
     private Integer cityId;
+    private Integer    communityId;
+    private String     address;
+    private String  communityName;
 
-    private Integer communityId;
+    private String     firstImg;
 
-    private String address;
+    private List<String> imageList = Lists.newArrayList();
+
+
+    private List<String> floorPlanList = Lists.newArrayList();
+    private List<String> featureList   = Lists.newArrayList();
+
+    private List<MultipartFile> houseFiles;
+
+    private List<MultipartFile> floorPlanFiles;
+
+
+    private String priceStr;
+
+    private String typeStr;
+
+
+    private Long userId;
+
+    private boolean bookmarked;
 
     private Integer state;
-    private  String sort="time_desc";
 
+    private List<Long> ids;
 
-    private String firstImg;
-    private List<String>imageList= Lists.newArrayList();
-    private List<String>floorPlanList=Lists.newArrayList();
-    private List<MultipartFile>houseFiles;
-    private List<MultipartFile>flooPlanFiles;
-    private Long userId;
-    private boolean bookmarked;
-    private List<Long>ids;
+    private String  sort = "time_desc";//price_desc,price_asc,time_desc
+
+    public String getCommunityName() {
+        return communityName;
+    }
+
+    public void setCommunityName(String communityName) {
+        this.communityName = communityName;
+    }
 
     public String getSort() {
         return sort;
@@ -96,11 +108,11 @@ public class House {
     }
 
     public List<MultipartFile> getFlooPlanFiles() {
-        return flooPlanFiles;
+        return floorPlanFiles;
     }
 
     public void setFlooPlanFiles(List<MultipartFile> flooPlanFiles) {
-        this.flooPlanFiles = flooPlanFiles;
+        this.floorPlanFiles = flooPlanFiles;
     }
 
     public Long getUserId() {
@@ -149,6 +161,11 @@ public class House {
 
     public void setType(Integer type) {
         this.type = type;
+        if (Objects.equal(type, 1) && Objects.equal(type, 0)) {
+            this.typeStr = "For Sale";
+        }else {
+            this.typeStr = "For Rent";
+        }
     }
 
     public Integer getPrice() {
@@ -157,6 +174,7 @@ public class House {
 
     public void setPrice(Integer price) {
         this.price = price;
+        this.priceStr = this.price + "万";
     }
 
     public String getImages() {
@@ -172,6 +190,50 @@ public class House {
                 this.imageList=list;
             }
         }
+    }
+
+    public Integer getRoundRating() {
+        return roundRating;
+    }
+
+    public void setRoundRating(Integer roundRating) {
+        this.roundRating = roundRating;
+    }
+
+    public List<String> getFeatureList() {
+        return featureList;
+    }
+
+    public void setFeatureList(List<String> featureList) {
+        this.featureList = featureList;
+        this.properties = Joiner.on(",").join(featureList);
+    }
+
+    public List<MultipartFile> getFloorPlanFiles() {
+        return floorPlanFiles;
+    }
+
+    public void setFloorPlanFiles(List<MultipartFile> floorPlanFiles) {
+        this.floorPlanFiles = floorPlanFiles;
+        if (!Strings.isNullOrEmpty(floorPlan)) {
+            this.floorPlanList = Splitter.on(",").splitToList(floorPlan);
+        }
+    }
+
+    public String getPriceStr() {
+        return priceStr;
+    }
+
+    public void setPriceStr(String priceStr) {
+        this.priceStr = priceStr;
+    }
+
+    public String getTypeStr() {
+        return typeStr;
+    }
+
+    public void setTypeStr(String typeStr) {
+        this.typeStr = typeStr;
     }
 
     public Integer getArea() {
@@ -204,6 +266,7 @@ public class House {
 
     public void setRating(Double rating) {
         this.rating = rating;
+        this.roundRating = (int) Math.round(rating);
     }
 
     public String getRemarks() {

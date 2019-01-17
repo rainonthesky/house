@@ -68,7 +68,7 @@
                                         <dt>卫生间:</dt>
                                             <dd>${house.baths}</dd>
                                         <dt>评分:</dt>
-                                            <dd><div class="rating rating-overall" data-score="${house.rating}"></div></dd>
+                                            <dd><div class="rating rating-overall" data-score="${house.roundRating}"></div></dd>
                                     </dl>
                                 </section><!-- /#quick-summary -->
                             </div><!-- /.col-md-4 -->
@@ -110,7 +110,7 @@
                                         </aside>
                                         <figure>
                                             <header>总体评价</header>
-                                            <div class="rating rating-overall" data-score="${house.rating}"></div>
+                                            <div class="rating rating-overall" data-score="${house.roundRating}"></div>
                                         </figure>
                                     </div>
                                     <div class="rating-form">

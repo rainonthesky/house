@@ -53,5 +53,12 @@ public interface UserService {
      */
     void updateUser(User updateUser, String email);
 
+    /**
+     * 通过用户id查询用户
+     * @param userId
+     * @return
+     */
+    public User getUserById(Long userId);
+
 
 }
