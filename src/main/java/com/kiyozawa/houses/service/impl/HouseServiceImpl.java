@@ -83,9 +83,9 @@ public class HouseServiceImpl implements HouseService {
             String images = Joiner.on(",").join(fileService.getImgPaths(house.getHouseFiles()));
             house.setImages(images);
         }
-        if(CollectionUtils.isNotEmpty(house.getFloorPlanList())){
-            String images = Joiner.on(",").join(fileService.getImgPaths(house.getFloorPlanFiles()));
-            house.setFloorPlan(images);
+        if(CollectionUtils.isNotEmpty(house.getFloorPlanFiles())){
+            String image = Joiner.on(",").join(fileService.getImgPaths(house.getFloorPlanFiles()));
+            house.setFloorPlan(image);
         }
         BeanHelper.onInsert(house);
         houseMapper.insert(house);

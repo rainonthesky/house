@@ -191,6 +191,13 @@ public class House {
             }
         }
     }
+    public void setFloorPlan(String floorPlan) {
+        this.floorPlan = floorPlan;
+        if (!Strings.isNullOrEmpty(floorPlan)) {
+            this.floorPlanList = Splitter.on(",").splitToList(floorPlan);
+        }
+
+    }
 
     public Integer getRoundRating() {
         return roundRating;
@@ -215,9 +222,6 @@ public class House {
 
     public void setFloorPlanFiles(List<MultipartFile> floorPlanFiles) {
         this.floorPlanFiles = floorPlanFiles;
-        if (!Strings.isNullOrEmpty(floorPlan)) {
-            this.floorPlanList = Splitter.on(",").splitToList(floorPlan);
-        }
     }
 
     public String getPriceStr() {
@@ -282,16 +286,16 @@ public class House {
     }
 
     public void setProperties(String properties) {
-        this.properties = properties == null ? null : properties.trim();
+        this.properties = properties;
+        this.featureList = Splitter.on(",").splitToList(properties);
     }
 
     public String getFloorPlan() {
         return floorPlan;
     }
 
-    public void setFloorPlan(String floorPlan) {
-        this.floorPlan = floorPlan == null ? null : floorPlan.trim();
-    }
+
+
 
     public String getTags() {
         return tags;

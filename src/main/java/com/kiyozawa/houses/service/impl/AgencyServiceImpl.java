@@ -1,6 +1,7 @@
 package com.kiyozawa.houses.service.impl;
 
 import com.kiyozawa.houses.mapper.AgencyMapper;
+import com.kiyozawa.houses.model.Agency;
 import com.kiyozawa.houses.model.User;
 import com.kiyozawa.houses.page.PageData;
 import com.kiyozawa.houses.page.PageParams;
@@ -43,6 +44,27 @@ public class AgencyServiceImpl implements AgencyService {
         setImg(agents);
         Long count=agencyMapper.selectAgentCount(new User());
         return PageData.buildPage(agents,count,pageParams.getPageSize(),pageParams.getPageNum());
+    }
+
+    @Override
+    public List<Agency> getAllAgency() {
+        return agencyMapper.select(new Agency());
+    }
+
+    @Override
+    public Agency getAgency(Integer id) {
+        Agency agency=new Agency();
+        agency.setId(id);
+        List<Agency> agencies=agencyMapper.select(agency);
+        if(agencies.isEmpty()){
+            return null;
+        }
+        return agencies.get(0);
+    }
+
+    @Override
+    public int add(Agency agency) {
+        return agencyMapper.insert(agency);
     }
 
     private void setImg(List<User>list){

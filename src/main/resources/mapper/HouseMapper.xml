@@ -18,6 +18,9 @@
       <when test="house.sort != null and house.sort == 'price_desc'">
         order by a.price desc
       </when>
+     <otherwise>
+        order by a.create_time desc
+     </otherwise>
     </choose>
     <if test="pageParams.offset !=null and pageParams.limit!=null">
       limit #{pageParams.offset},#{pageParams.limit}
@@ -42,6 +45,7 @@
       on a.id = b.house_id
     </if>
     <where>
+        state = 1
     <if test="house.id !=null and house.id !=0">
       and a.id = #{house.id}
     </if>

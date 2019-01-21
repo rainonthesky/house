@@ -19,7 +19,6 @@ public class HomepageController {
         List<House> houses =recommendService.getLastest();
         modelMap.put("recomHouses",houses);
         return "homepage/index";
-
     }
     @RequestMapping("")
     public  String index(ModelMap modelMap){

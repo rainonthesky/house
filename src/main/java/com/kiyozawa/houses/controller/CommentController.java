@@ -1,5 +1,4 @@
 package com.kiyozawa.houses.controller;
-
 import com.kiyozawa.houses.interceptor.UserContext;
 import com.kiyozawa.houses.model.User;
 import com.kiyozawa.houses.service.CommentService;
@@ -27,7 +26,7 @@ public class CommentController {
     User user =UserContext.getUser();
     Long userId=user.getId();
     commentService.addBlogComment(blogId,content,userId);
-    return "redirect://blog/detail?id=" + blogId;
+    return "redirect:/blog/detail?id=" + blogId;
 
     }
 }

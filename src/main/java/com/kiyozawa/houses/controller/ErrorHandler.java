@@ -13,6 +13,5 @@ public class ErrorHandler {
         logger.error(e.getMessage(),e);
         logger.error(request.getRequestURI()+"encounter 500");
         return "error/500";
-
     }
 }

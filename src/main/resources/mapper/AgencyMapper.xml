@@ -38,6 +38,35 @@
       </if>
     </where>
   </select>
+  <select id="select" resultType="agency">
+    select <include refid="agencyField"/>
+    from agency
+    <where>
+      <if test="id!=null and id !=0">
+        and id = #{id}
+      </if>
+      <if test="name!=null and name !='' ">
+        and email = #{email}
+      </if>
+    </where>
+  </select>
+  <insert id="insert">
+    insert  into agency( name ,
+				        address ,
+				        phone ,
+				        email ,
+				        about_us ,
+				        mobile ,
+				        web_site)value (
+				        #{name},
+                       #{address},
+                       #{phone},
+                       #{email},
+                       #{aboutUs},
+                       #{mobile},
+                       #{webSite}
+				        )
+  </insert>
 
 
 
